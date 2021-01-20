@@ -1,0 +1,20 @@
+---
+title: "Leonardo Feitosa"
+image: "leo.jpg"
+links:
+  - label: ResearchGate
+    url: "https://www.researchgate.net/profile/Leonardo_Feitosa3"
+  - label: Google Scholar
+    url: "https://scholar.google.com.br/citations?user=02Nq52RlwHEC&hl=pt-BR"
+  - label: Twitter
+    url: "https://twitter.com/FeitosaManir"
+  - label: GitHub
+    url: "https://github.com/lmfeitos"
+  - label: Email
+    url: "lmfeitos@gmail.com"
+output:
+  postcards::jolla
+site: distill::distill_website
+---
+ 
+I am a Brazilian marine biologist undertaking my PhD degree at the Bren School of Environmental Science and Management in the University of California, Santa Barbara. My research interests include fisheries management, conservation of sharks and rays, habitat use, and bycatch modeling and mitigation for achieving sustainable fisheries.
