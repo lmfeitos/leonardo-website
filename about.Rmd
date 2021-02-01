@@ -1,7 +1,8 @@
 ---
 title: "About this site"
 description: |
-  Some additional details about the website
+  Information about Leonardo Feitosa
+
 ---
 
 ```{r setup, include=FALSE}

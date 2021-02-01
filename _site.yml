@@ -7,6 +7,16 @@ navbar:
   right:
     - text: "Home"
       href: index.html
-    - text: "About"
-      href: about.html
+    - text: "About Me"
+      menu:
+       - text: "CV"
+         href: CV Leonardo Feitosa.html
+       - text: "Experience"
+         href: 
+         image: "R. bonasus.jpg"
+         image: "Vigia.jpg"
+    - text: "Welcome"
+      href: welcome.html
+    - text: "Blog"
+      href: blog.html
 output: distill::distill_article
