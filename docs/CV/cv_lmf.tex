@@ -1,0 +1,370 @@
+%% Template for a CV
+%% Author: Rob J Hyndman
+
+\documentclass[10pt,a4paper,]{article}
+\usepackage[scaled=0.86]{DejaVuSansMono}
+\usepackage[sfdefault,lf,t]{carlito}
+
+% Change color to blue
+\usepackage{color,xcolor}
+\definecolor{headcolor}{HTML}{990000}
+
+\usepackage{ifxetex,ifluatex}
+\usepackage{fixltx2e} % provides \textsubscript
+\ifnum 0\ifxetex 1\fi\ifluatex 1\fi=0 % if pdftex
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+\else % if luatex or xelatex
+  \ifxetex
+    \usepackage{mathspec}
+  \else
+    \usepackage{fontspec}
+  \fi
+  \defaultfontfeatures{Ligatures=TeX,Scale=MatchLowercase}
+\fi
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+
+% use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+% use microtype if available
+\IfFileExists{microtype.sty}{%
+\usepackage[]{microtype}
+\UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\PassOptionsToPackage{hyphens}{url} % url is loaded by hyperref
+\usepackage[unicode=true,hidelinks]{hyperref}
+\urlstyle{same}  % don't use monospace font for urls
+\usepackage{geometry}
+\geometry{left=1.75cm,right=1.75cm,top=2.2cm,bottom=2cm}
+
+\usepackage{longtable,booktabs}
+% Fix footnotes in tables (requires footnote package)
+\IfFileExists{footnote.sty}{\usepackage{footnote}\makesavenoteenv{long table}}{}
+\IfFileExists{parskip.sty}{%
+\usepackage{parskip}
+}{% else
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{6pt plus 2pt minus 1pt}
+}
+\setlength{\emergencystretch}{3em}  % prevent overfull lines
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\setcounter{secnumdepth}{0}
+
+% set default figure placement to htbp
+\makeatletter
+\def\fps@figure{htbp}
+\makeatother
+
+
+
+\date{fevereiro 2021}
+
+
+\usepackage{paralist,ragged2e,datetime}
+\usepackage[hyphens]{url}
+\usepackage{fancyhdr,enumitem,pifont}
+\usepackage[compact,small,sf,bf]{titlesec}
+
+\RaggedRight
+\sloppy
+
+% Header and footer
+\pagestyle{fancy}
+\makeatletter
+\lhead{\sf\textcolor[gray]{0.4}{Curriculum Vitae: \@name}}
+\rhead{\sf\textcolor[gray]{0.4}{\thepage}}
+\cfoot{}
+\def\headrule{{\color[gray]{0.4}\hrule\@height\headrulewidth\@width\headwidth \vskip-\headrulewidth}}
+\makeatother
+
+% Header box
+\usepackage{tabularx}
+
+\makeatletter
+\def\name#1{\def\@name{#1}}
+\def\info#1{\def\@info{#1}}
+\makeatother
+\newcommand{\shadebox}[3][.9]{\fcolorbox[gray]{0}{#1}{\parbox{#2}{#3}}}
+
+\usepackage{calc}
+\newlength{\headerboxwidth}
+\setlength{\headerboxwidth}{\textwidth}
+%\addtolength{\headerboxwidth}{0.2cm}
+\makeatletter
+\def\maketitle{
+\thispagestyle{plain}
+\vspace*{-1.4cm}
+\shadebox[0.9]{\headerboxwidth}{\sf\color{headcolor}\hfil
+\hbox to 0.98\textwidth{\begin{tabular}{l}
+\\[-0.3cm]
+\LARGE\textbf{\@name}
+\\[0.1cm]\large PhD Student\\[0.6cm]
+\normalsize\textbf{Curriculum Vitae}\\
+\normalsize fevereiro 2021
+\end{tabular}
+\hfill\hbox{\fontsize{9}{12}\sf
+\begin{tabular}{@{}rl@{}}
+\@info
+\end{tabular}}}\hfil
+}
+\vspace*{0.2cm}}
+\makeatother
+
+% Section headings
+\titlelabel{}
+\titlespacing{\section}{0pt}{1.5ex}{0.5ex}
+\titleformat*{\section}{\color{headcolor}\large\sf\bfseries}
+\titleformat*{\subsection}{\color{headcolor}\sf\bfseries}
+\titlespacing{\subsection}{0pt}{1ex}{0.5ex}
+
+% Miscellaneous dimensions
+\setlength{\parskip}{0ex}
+\setlength{\parindent}{0em}
+\setlength{\headheight}{15pt}
+\setlength{\tabcolsep}{0.15cm}
+\clubpenalty = 10000
+\widowpenalty = 10000
+\setlist{itemsep=1pt}
+\setdescription{labelwidth=1.2cm,leftmargin=1.5cm,labelindent=1.5cm,font=\rm}
+
+% Make nicer bullets
+\renewcommand{\labelitemi}{\ding{228}}
+
+\usepackage{booktabs,fontawesome}
+%\usepackage[t1,scale=0.86]{sourcecodepro}
+
+\name{Leonardo Feitosa}
+\def\imagetop#1{\vtop{\null\hbox{#1}}}
+\info{%
+\raisebox{-0.05cm}{\imagetop{\faicon{map-marker}}} &  \imagetop{\begin{tabular}{@{}l@{}}Bren
+School of Environmental Science, University of California, Santa
+Barbara\end{tabular}}\\ %
+\faicon{home} & \href{http://\url{https://lmfeitos.github.io/leonardo-website/}}{\url{https://lmfeitos.github.io/leonardo-website/}}\\% %
+\faicon{phone} & +55 98 991533001\\%
+\faicon{envelope} & \href{mailto:lmfeitosa@ucsb.edu}{\nolinkurl{lmfeitosa@ucsb.edu}}\\%
+\faicon{twitter} & \href{https://twitter.com/\textbf{FeitosaManir?}}{@\textbf{FeitosaManir?}}\\%
+\faicon{github} & \href{https://github.com/\url{https://github.com/lmfeitos}}{\url{https://github.com/lmfeitos}}\\%
+%
+%
+%
+}
+
+
+%\usepackage{inconsolata}
+
+
+\setlength\LTleft{0pt}
+\setlength\LTright{0pt}
+
+% Pandoc CSL macros
+\newlength{\cslhangindent}
+\setlength{\cslhangindent}{1.5em}
+\newlength{\csllabelwidth}
+\setlength{\csllabelwidth}{3em}
+\newenvironment{CSLReferences}[3] % #1 hanging-ident, #2 entry spacing
+ {% don't indent paragraphs
+  \setlength{\parindent}{0pt}
+  % turn on hanging indent if param 1 is 1
+  \ifodd #1 \everypar{\setlength{\hangindent}{\cslhangindent}}\ignorespaces\fi
+  % set entry spacing
+  \ifnum #2 > 0
+  \setlength{\parskip}{#2\baselineskip}
+  \fi
+ }%
+ {}
+\usepackage{calc}
+\newcommand{\CSLBlock}[1]{#1\hfill\break}
+\newcommand{\CSLLeftMargin}[1]{\parbox[t]{\csllabelwidth}{\hfill #1~}}
+\newcommand{\CSLRightInline}[1]{\parbox[t]{\linewidth - \cslhangindent - \csllabelwidth}{#1}\vspace{0.8ex}}
+\newcommand{\CSLIndent}[1]{\hspace{\cslhangindent}#1}
+
+
+\def\endfirstpage{\newpage}
+
+\begin{document}
+\maketitle
+
+
+\hypertarget{some-stuff-about-me}{%
+\section{Some stuff about me}\label{some-stuff-about-me}}
+
+\hypertarget{language}{%
+\subsection{Language}\label{language}}
+
+\begin{itemize}
+\tightlist
+\item
+  Portuguese: Native speaker
+\item
+  English: Fluent speaker (TOEFL IBT: 114)
+\item
+  Spanish: Good understanding
+\end{itemize}
+
+\hypertarget{computer}{%
+\subsection{Computer}\label{computer}}
+
+\begin{itemize}
+\tightlist
+\item
+  Microsoft office
+\item
+  R programming: basic skills
+\end{itemize}
+
+\hypertarget{research}{%
+\subsection{Research}\label{research}}
+
+\begin{itemize}
+\tightlist
+\item
+  DNA extraction, amplification, and molecular data analyses
+\item
+  Elasmobranch vertebrae processing, ageing, and microchemistry data
+  analysis
+\end{itemize}
+
+\hypertarget{education}{%
+\section{Education}\label{education}}
+
+\begin{longtable}{@{\extracolsep{\fill}}ll}
+2012-2017 & \parbox[t]{0.85\textwidth}{%
+\textbf{Biological Sciences}\hfill{\footnotesize }\newline
+  Universidade Federal do Maranhão\par%
+  \vspace{0.1cm}\begin{minipage}{0.7\textwidth}%
+\begin{itemize}%
+\item Sao Luis, Brazil%
+\end{itemize}%
+\end{minipage}%
+\vspace{\parsep}}\\
+2019 & \parbox[t]{0.85\textwidth}{%
+\textbf{Master of Animal Biology}\hfill{\footnotesize }\newline
+  Universidade Federal de Pernambuco\par%
+  \vspace{0.1cm}\begin{minipage}{0.7\textwidth}%
+\begin{itemize}%
+\item Recife, Brazil%
+\end{itemize}%
+\end{minipage}%
+\vspace{\parsep}}\\
+Ongoing (2020) & \parbox[t]{0.85\textwidth}{%
+\textbf{PhD in Environmental Science and Management}\hfill{\footnotesize }\newline
+  University of California\par%
+  \vspace{0.1cm}\begin{minipage}{0.7\textwidth}%
+\begin{itemize}%
+\item Santa Barbara, USA%
+\end{itemize}%
+\end{minipage}%
+\vspace{\parsep}}\\
+\end{longtable}
+
+\hypertarget{publications-needs-fixing}{%
+\section{Publications (Needs fixing)}\label{publications-needs-fixing}}
+
+\hypertarget{scholarships-and-awards}{%
+\section{Scholarships and Awards}\label{scholarships-and-awards}}
+
+\begin{longtable}{@{\extracolsep{\fill}}ll}
+2019 & \parbox[t]{0.85\textwidth}{%
+\textbf{CAPES-Fulbright PhD Scholarship Award, USA}\hfill{\footnotesize PhD Sponsored Student (administered by LASPAU)}\newline
+  \empty%
+  \vspace{0.1cm}\begin{minipage}{0.7\textwidth}%
+\begin{itemize}%
+\item Current%
+\end{itemize}%
+\end{minipage}%
+\vspace{\parsep}}\\
+2017 & \parbox[t]{0.85\textwidth}{%
+\textbf{Graduate Scholarship Program (FACEPE), UFPE, Brazil}\hfill{\footnotesize Graduate Sponsored Student}\newline
+  \empty%
+  \vspace{0.1cm}\begin{minipage}{0.7\textwidth}%
+\begin{itemize}%
+\item Two year position%
+\end{itemize}%
+\end{minipage}%
+\vspace{\parsep}}\\
+2016 & \parbox[t]{0.85\textwidth}{%
+\textbf{Institutional Program of Scientific Initiation Scholarships (PIBIC-CNPq), UFMA, Brazil}\hfill{\footnotesize Undergraduate Sponsored Student (LabAqua)}\newline
+  \empty%
+  \vspace{0.1cm}\begin{minipage}{0.7\textwidth}%
+\begin{itemize}%
+\item One year position%
+\end{itemize}%
+\end{minipage}%
+\vspace{\parsep}}\\
+2015 & \parbox[t]{0.85\textwidth}{%
+\textbf{Institutional Program of Scientific Initiation Scholarships (PIBIC), UFMA, Brazil}\hfill{\footnotesize Undergraduate Sponsored Student (LABGEM)}\newline
+  \empty%
+  \vspace{0.1cm}\begin{minipage}{0.7\textwidth}%
+\begin{itemize}%
+\item One year position%
+\end{itemize}%
+\end{minipage}%
+\vspace{\parsep}}\\
+2014 & \parbox[t]{0.85\textwidth}{%
+\textbf{Science Without Borders Program, United States of America}\hfill{\footnotesize Sponsored exchange student (University of Texas at Austin) - Biology Major (3.38/4.00)}\newline
+  \empty%
+  \vspace{0.1cm}\begin{minipage}{0.7\textwidth}%
+\begin{itemize}%
+\item One year scholarship%
+\end{itemize}%
+\end{minipage}%
+\vspace{\parsep}}\\
+2012 & \parbox[t]{0.85\textwidth}{%
+\textbf{Tutorial Education Program (PET), UFMA, Brazil}\hfill{\footnotesize Undergraduate Sponsored Student}\newline
+  \empty%
+  \vspace{0.1cm}\begin{minipage}{0.7\textwidth}%
+\begin{itemize}%
+\item One year scholarhip%
+\end{itemize}%
+\end{minipage}%
+\vspace{\parsep}}\\
+\end{longtable}
+
+\hypertarget{professional-and-volunteers-experience}{%
+\section{Professional and Volunteers
+Experience}\label{professional-and-volunteers-experience}}
+
+\begin{longtable}{@{\extracolsep{\fill}}ll}
+2016 & \parbox[t]{0.85\textwidth}{%
+\textbf{Undergraduate Teaching Assistant - Molecular Ecology course}\hfill{\footnotesize }\newline
+  Biology Department, Universidade Federal do Maranhão\par%
+  \vspace{0.1cm}\begin{minipage}{0.7\textwidth}%
+\begin{itemize}%
+\item One semester position%
+\end{itemize}%
+\end{minipage}%
+\vspace{\parsep}}\\
+2013 & \parbox[t]{0.85\textwidth}{%
+\textbf{Undergraduate Teaching Assistant - Systems Ecology course}\hfill{\footnotesize }\newline
+  Biology Department, Universidade Federal do Maranhão\par%
+  \vspace{0.1cm}\begin{minipage}{0.7\textwidth}%
+\begin{itemize}%
+\item One semester position%
+\end{itemize}%
+\end{minipage}%
+\vspace{\parsep}}\\
+2012 & \parbox[t]{0.85\textwidth}{%
+\textbf{Volunteered guiding visitors, and proposed and organized funding events}\hfill{\footnotesize }\newline
+  Orla Viva NGO\par%
+  \vspace{0.1cm}\begin{minipage}{0.7\textwidth}%
+\begin{itemize}%
+\item Two year position%
+\end{itemize}%
+\end{minipage}%
+\vspace{\parsep}}\\
+\end{longtable}
+
+\hypertarget{prizes}{%
+\section{Prizes}\label{prizes}}
+
+\begin{longtable}{@{\extracolsep{\fill}}ll}
+2016 & \parbox[t]{0.85\textwidth}{%
+\textbf{Best Oral talk}\\[-0.1cm]{\footnotesize Carolus Maria Vooren award from the Brazilian Society for the study of Elasmobranchs}}\\[0.4cm]
+2020 & \parbox[t]{0.85\textwidth}{%
+\textbf{Full PhD Fulbright Scholarship}\\[-0.1cm]{\footnotesize Awarded with a fully funded PhD from Fulbright Brazil and CAPES}}\\[0.4cm]
+\end{longtable}
+
+\end{document}

@@ -1,0 +1,20 @@
+---
+title: "New Instagram account"
+description: |
+  New instagram account for shark and ray #scicomm in Brazil.
+author:
+  - name: Leonardo Feitosa
+date: 02-04-2021
+output:
+  distill::distill_article:
+    self_contained: false
+---
+
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+Check out the Instagram account @elasmos_br to find out about new papers about sharks and rays from Brazil!
+The account has daily posts from Monday to Friday, recorded live interviews with Brazilian researchers about a myriad of topics.
+

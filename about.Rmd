@@ -1,7 +1,7 @@
 ---
-title: "About this site"
+title: "About Leonardo Feitosa"
 description: |
-  Information about Leonardo Feitosa
+  Some personal details
 
 ---
 
@@ -9,3 +9,22 @@ description: |
 knitr::opts_chunk$set(echo = FALSE)
 ```
 
+
+# Skills
+
+## Language proficiencies:
+* Portuguese: Native speaker
+* English: Fluent speaker (TOEFL IBT: 114)
+* Spanish: Good understanding
+
+## Computer:
+* Microsoft office
+* R programming: basic skills
+
+## Research:
+* DNA extraction, amplification, and molecular data analyses
+* Elasmobranch vertebrae processing, ageing, and microchemistry data analysis
+
+## Experience and projects:
+* Assessing elasmobranch nursery areas on a global conservation hotspot for improved management (*ongoing*).
+   + Description: We use samples from vertebrae of six critically endangered or data deficient elasmobranch species on Brazil's northern coast spanning from Maranhão to Amapá states. With them, microchemistry analysis will be carried out in order to obtain their habitat use patterns and, together with their biological information obtained from published studies, we will determine the key areas for their conservation in the region. Through that, areas considered as nurseries will be evaluated. Finally, a management plan will de developed taking into consideration the habitat use information obtained.

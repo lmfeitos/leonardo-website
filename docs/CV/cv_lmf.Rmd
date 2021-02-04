@@ -1,0 +1,117 @@
+---
+name: Leonardo
+surname: Feitosa
+position: "PhD Student"
+address: "Bren School of Environmental Science, University of California, Santa Barbara"
+phone: +55 98 991533001
+www: "https://lmfeitos.github.io/leonardo-website/"
+email: "lmfeitosa@ucsb.edu"
+twitter: "@FeitosaManir"
+github: "https://github.com/lmfeitos"
+date: "`r format(Sys.time(), '%B %Y')`"
+output: vitae::hyndman
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE, warning = FALSE, message = FALSE)
+library(vitae)
+library(rorcid)
+library(scholar)
+library(tibble)
+library(tidyverse)
+```
+
+# Some stuff about me
+## Language
+* Portuguese: Native speaker
+* English: Fluent speaker (TOEFL IBT: 114)
+* Spanish: Good understanding
+
+## Computer
+* Microsoft office
+* R programming: basic skills
+
+## Research
+* DNA extraction, amplification, and molecular data analyses
+* Elasmobranch vertebrae processing, ageing, and microchemistry data analysis
+
+# Education
+
+```{r}
+tribble(
+  ~ Degree, ~ Year, ~ Institution, ~ Place,
+  "Biological Sciences", "2012-2017", "Universidade Federal do Maranhão", "Sao Luis, Brazil",
+  "Master of Animal Biology", "2019", "Universidade Federal de Pernambuco", "Recife, Brazil",
+  "PhD in Environmental Science and Management", "Ongoing (2020)", "University of California", "Santa Barbara, USA"
+) %>% 
+  detailed_entries(what = Degree, 
+                   when = Year, 
+                   where = Institution,
+                   why = Place)
+```
+
+# Publications (Needs fixing)
+
+```{r}
+pubs <- scholar::get_publications("02Nq52RlwHEC&hl") %>% 
+  detailed_entries(
+    what = title,
+    when = year,
+    with = author,
+    where = journal,
+    why = cites
+  )
+```
+
+# Scholarships and Awards
+
+```{r}
+tribble(
+  ~ Period, ~ Scholarship, ~ Description, ~ Duration,
+  "2019", "CAPES-Fulbright PhD Scholarship Award, USA", "PhD Sponsored Student (administered by LASPAU)", "Current",
+  "2017", "Graduate Scholarship Program (FACEPE), UFPE, Brazil", "Graduate Sponsored Student", "Two year position",
+  "2016", "Institutional Program of Scientific Initiation Scholarships (PIBIC-CNPq), UFMA, Brazil", "Undergraduate Sponsored Student (LabAqua)", "One year position",
+  "2015", "Institutional Program of Scientific Initiation Scholarships (PIBIC), UFMA, Brazil", "Undergraduate Sponsored Student (LABGEM)", "One year position",
+  "2014", "Science Without Borders Program, United States of America", "Sponsored exchange student (University of Texas at Austin) - Biology Major (3.38/4.00)", "One year scholarship",
+  "2012", "Tutorial Education Program (PET), UFMA, Brazil", "Undergraduate Sponsored Student", "One year scholarhip"
+) %>% 
+  detailed_entries(
+    when = Period,
+    what = Scholarship,
+    with = Description,
+    why = Duration
+  )
+```
+
+# Professional and Volunteers Experience
+
+```{r}
+tribble(
+  ~ Period, ~ Institution, ~ Function, ~ Duration,
+  "2016", "Biology Department, Universidade Federal do Maranhão", "Undergraduate Teaching Assistant - Molecular Ecology course", "One semester position",
+  "2013", "Biology Department, Universidade Federal do Maranhão", "Undergraduate Teaching Assistant - Systems Ecology course", "One semester position",
+    "2012", "Orla Viva NGO", "Volunteered guiding visitors, and proposed and organized funding events", "Two year position"
+) %>% 
+  detailed_entries(
+    when = Period,
+    where = Institution,
+    what = Function,
+    why = Duration
+  )
+```
+
+
+# Prizes
+
+```{r}
+tribble(
+  ~ Year, ~ Type, ~ Desc,
+  "2016", "Best Oral talk", "Carolus Maria Vooren award from the Brazilian Society for the study of Elasmobranchs",
+  "2020", "Full PhD Fulbright Scholarship", "Awarded with a fully funded PhD from Fulbright Brazil and CAPES"
+) %>% 
+  brief_entries(
+    what = Type,
+    when = Year,
+    with = Desc
+    )
+```
