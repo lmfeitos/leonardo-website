@@ -1,5 +1,24 @@
 [
   {
+    "path": "posts/2021-02-22-mappingskills/",
+    "title": "Oil Spills in California by county",
+    "description": "Here is a cool little project on mapping oil spills in California",
+    "author": [
+      {
+        "name": "Leonardo Feitosa",
+        "url": {}
+      }
+    ],
+    "date": "2021-02-22",
+    "categories": [
+      "portfolios"
+    ],
+    "contents": "\r\nHello guys!\r\nIt’s been a while since I’ve last posted here, right?\r\nThis time I’ll show you some new mapping skills I learned recently thanks to Allison Horst and Casey O’Hara!\r\nI got data on the records of California oil spills by county in 2008 from this website https://gis.data.ca.gov/datasets/7464e3d6f4924b50ad06e5a553d71086_0/data and created a few data visualizations to show exactly where oil spills occurred in an interactive map. I also created a choropleth map based on the counts of oil spills per county so we can see where they most occurred in 2008.\r\nHere are the plots!\r\n\r\n\r\n\r\n",
+    "preview": {},
+    "last_modified": "2021-02-22T11:23:24-03:00",
+    "input_file": {}
+  },
+  {
     "path": "posts/2021-02-04-welcome/",
     "title": "New Instagram account",
     "description": "New instagram account for shark and ray #scicomm in Brazil.",
@@ -10,10 +29,12 @@
       }
     ],
     "date": "2021-02-04",
-    "categories": [],
+    "categories": [
+      "social media"
+    ],
     "contents": "\r\nCheck out the Instagram account @elasmos_br to find out about new papers about sharks and rays from Brazil! The account has daily posts from Monday to Friday, recorded live interviews with Brazilian researchers about a myriad of topics.\r\n\r\n\r\n\r\n",
     "preview": {},
-    "last_modified": "2021-02-04T13:05:16-03:00",
+    "last_modified": "2021-02-22T11:23:52-03:00",
     "input_file": {}
   }
 ]
