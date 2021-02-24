@@ -103,7 +103,7 @@ tm_shape(ca_counties) +
 
 
 
-## Part 2
+## Data visualization of inland oil spills records in California in 2008
 
 ```{r}
 ## Counts of California oil spills by county
