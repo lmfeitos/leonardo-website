@@ -11,11 +11,20 @@ date: 02-22-2021
 output:
   distill::distill_article:
     self_contained: false
+    code_folding: hide
 ---
 
 
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = FALSE)
+knitr::opts_chunk$set(echo = FALSE,
+                      warning = FALSE,
+                      message = FALSE)
+library(tidyverse)
+library(here)
+library(tmap)
+library(lubridate)
+library(janitor)
+library(sf)
 ```
 
 Hello guys! 
@@ -27,4 +36,95 @@ This time I'll show you some new mapping skills I learned recently thanks to All
 I got data on the records of California oil spills by county in 2008 from this website https://gis.data.ca.gov/datasets/7464e3d6f4924b50ad06e5a553d71086_0/data and created a few data visualizations to show exactly where oil spills occurred in an interactive map. I also created a choropleth map based on the counts of oil spills per county so we can see where they most occurred in 2008.
 
 Here are the plots!
+
+```{r}
+## Read in the data
+### Oil spills by county
+ca_oil_spills <- read_sf(here("data", "oil_spills", "Oil_Spill_Incident_Tracking_%5Bds394%5D.shp")) %>% 
+  clean_names() %>% 
+  rename(object_id = objectid,
+         dfg_control = dfgcontrol,
+         oes_number = oesnumber,
+         date = dateofinci,
+         inland_marine = inlandmari,
+         time = timeofinci,
+         location = specificlo,
+         city = localecity,
+         county_name = localecoun) 
+
+  
+### California counties shape file
+ca_counties <- read_sf(here("data", "ca_counties", "CA_Counties_TIGER2016.shp")) %>% 
+  clean_names() %>% 
+  dplyr::select(name) %>% 
+  rename(county_name = name)
+```
+
+
+```{r}
+## Oil spill data wrangling
+ca_oil_spills_tidy <- ca_oil_spills %>%
+  mutate(date = as.Date(date)) %>% 
+  mutate(date = ymd(date)) %>% 
+  mutate(year = year(date)) %>% 
+  dplyr::select(date, year, longitude, latitude, city, county_name, inland_marine)
+```
+
+```{r, include = FALSE}
+## set crs for both datasets
+ca_counties %>% st_crs()
+ca_oil_spills_tidy %>% st_crs()
+
+```
+
+
+```{r, include = FALSE}
+ggplot() +
+  geom_sf(data = ca_counties,
+          color = "gray18",
+          size = 0.1) +
+  geom_sf(data = ca_oil_spills_tidy,
+          color = "black",
+          size = 0.5) +
+  theme_bw()
+```
+
+## Interactive map of California oil spills in 2008
+
+```{r}
+tmap_mode("view")
+
+tm_shape(ca_counties) +
+  tm_fill("county_name") +
+  tm_shape(ca_oil_spills_tidy) +
+  tm_dots()
+```
+
+
+
+
+## Part 2
+
+```{r}
+## Counts of California oil spills by county
+ca_oil_spills_join <- ca_counties %>% 
+  st_join(ca_oil_spills_tidy)
+
+oil_spills_count <- ca_oil_spills_join %>% 
+  filter(inland_marine %in% c("Inland")) %>% 
+  count(county_name.x, inland_marine) %>%
+  mutate(n = as.numeric(n))
+
+
+ggplot(data = oil_spills_count) +
+  geom_sf(aes(fill = n),
+          color = "black",
+          size = 0.5) +
+  scale_fill_viridis_c() +
+  labs(title = "Inland oil spill records by county in California for 2008",
+       fill = "Number of oil spill records") +
+  theme_bw() +
+  theme(axis.text = element_text(size = 10, face = "bold", color = "black"),
+        panel.grid = element_blank())
+```
 
