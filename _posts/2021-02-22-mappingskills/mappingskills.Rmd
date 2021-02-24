@@ -95,9 +95,10 @@ ggplot() +
 tmap_mode("view")
 
 tm_shape(ca_counties) +
-  tm_fill("county_name") +
+  tm_fill("county_name", palette = "Purples", title = "County") +
   tm_shape(ca_oil_spills_tidy) +
-  tm_dots()
+  tm_dots(size = 0.03, col = "darkorange2", border.col = "black") +
+  tm_view(view.legend.position = "left")
 ```
 
 
