@@ -1,0 +1,191 @@
+---
+title: "text_mining"
+description: |
+  A short description of the post.
+author:
+  - name: Leonardo Feitosa
+    url: {}
+date: 02-25-2021
+output:
+  distill::distill_article:
+    self_contained: false
+    code_folding: hide
+---
+
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+library(tidyverse)
+library(tidytext)
+library(textdata)
+library(pdftools)
+library(ggrepel)
+library(ggwordcloud)
+library(fishualize)
+library(here)
+library(jpeg)
+library(ggpubr)
+```
+
+
+## Text Mining analysis of Jaws by Peter Benchley
+
+Here I'll show some text mining analysis for the famous novel Jaws by Peter Benchley.
+
+Text mining is a fun and powerful way of analyzing texts, performing sentiment analysis 
+
+```{r, cache = TRUE}
+## Read in the data 
+jaws_text <- pdf_text(here("data", "jaws.pdf"))
+
+jaws_text_p50 <- jaws_text[50]
+```
+
+
+```{r}
+## Wrangling text
+
+jaws_text_tidy <- data.frame(jaws_text) %>% 
+  mutate(text_full = str_split(jaws_text, pattern = "\\r\n")) %>% 
+  unnest(text_full) %>% 
+  mutate(text_full = str_squish(text_full))
+
+## Tidying the data
+
+jaws_df <- jaws_text_tidy %>% 
+  slice(-(1:5)) %>% 
+  mutate(part = case_when(
+    str_detect(text_full, "PART") ~ text_full,
+    TRUE ~ NA_character_
+  )) %>% 
+  fill(part) %>% 
+  separate(col = part, into = c("pt", "no"), sep = " ") %>% 
+  mutate(no = as.numeric(no))
+
+## Counts of words
+jaws_tokens <- jaws_df %>% 
+  unnest_tokens(word, text_full) %>% 
+  select(-jaws_text)
+
+# Counts
+jaws_wordcount <- jaws_tokens %>% 
+  count(no, word)
+```
+
+```{r, message = FALSE}
+## Removing stop words
+jaws_nonstop_words <- jaws_tokens %>% 
+  anti_join(stop_words)
+
+```
+
+```{r}
+#Counts of non stop words
+nonstop_counts <- jaws_nonstop_words %>% 
+  count(no, word) %>% 
+  mutate(word = str_replace(word, pattern = "jaws.txt", replacement = "")) %>%
+  mutate(word = str_squish(word)) %>% 
+  slice(-(1:65))
+
+## Counts of most frequent words by part
+top_9_words <- nonstop_counts %>% 
+  group_by(no) %>% 
+  arrange(-n) %>%
+  slice(1:9)
+
+```
+
+
+```{r}
+# Plot
+ggplot(data = top_9_words, aes(x = word, y = n)) +
+  geom_col(fill = "royalblue4",
+           alpha = 0.8,
+           color = "black") +
+  facet_wrap(~ no, scales = "free") +
+  labs(x = "Words",
+       y = "Number per chapter",
+       title = "Top 9 words per part in Jaws by Peter Benchley") +
+  coord_flip() +
+  theme_bw() +
+  theme(panel.grid = element_blank(),
+        axis.title = element_text(size = 12, face = "bold", color = "black"),
+        axis.text = element_text(size = 10, color = "gray19"),
+        strip.background = element_rect(fill = "white"),
+        strip.text = element_text(size = 11, face = "bold", color = "black"))
+```
+
+
+## Worldcloud
+
+```{r, warning = FALSE}
+top_50_words <- nonstop_counts %>% 
+  group_by(no) %>% 
+  arrange(-n) %>% 
+  slice(1:50)
+
+# Read in the image
+img <- readJPEG(here("data", "sherlock", "jaws2.jpg"))
+
+top_50_words %>% 
+  filter(no == 1) %>% 
+  ggplot(aes(label = word)) +
+  background_image(img) +
+  geom_text_wordcloud_area(aes(size = n, color = n),
+                      shape = "triangle-upright") +
+  scale_size_area(max_size = 60) +
+  scale_color_fish(option = "Lepomis_megalotis") +
+  theme_bw()
+```
+
+
+## Sentiment analysis
+
+```{r, message = FALSE}
+## NRC
+jaws_nrc <- jaws_nonstop_words %>% 
+  inner_join(get_sentiments("nrc"))
+
+# 
+jaws_nrc_counts <- jaws_nrc %>% 
+  count(no, sentiment) %>% 
+  mutate(sentiment = case_when(
+    sentiment == "trust" ~ "Trust",
+    sentiment == "surprise" ~ "Surprise",
+    sentiment == "sadness" ~ "Sadness",
+    sentiment == "positive" ~ "Positive",
+    sentiment == "negative" ~ "Negative",
+    sentiment == "joy" ~ "Joy",
+    sentiment == "fear" ~ "Fear",
+    sentiment == "disgust" ~ "Disgust",
+    sentiment == "anticipation" ~ "Anticipation",
+    sentiment == "anger" ~ "Anger"
+  ))
+```
+
+```{r}
+# Make the finalized plot
+
+ggplot(data = jaws_nrc_counts, aes(x = sentiment, y = n)) +
+  geom_col(fill = "royalblue4",
+           alpha = 0.7,
+           color = "black") +
+  facet_wrap(~ no) +
+  labs(x = "Sentiment based on the NRC lexicon",
+       y = "Number of words",
+       title = "Distribution of sentiments across the Jaws book") +
+  coord_flip() +
+  theme_bw() +
+  theme(axis.title = element_text(size = 12, face = "bold", color = "black"),
+        axis.text = element_text(size = 11, color = "black"),
+        strip.background = element_rect(fill = "white"),
+        strip.text = element_text(size = 12, color = "black", face = "bold"),
+        panel.grid = element_blank())
+```
+
+
+
+#### Citation: Benchley, Peter. Jaws.
+
+```
+
