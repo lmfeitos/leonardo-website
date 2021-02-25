@@ -1,7 +1,7 @@
 name: "."
 title: "Leonardo Feitosa"
 description: |
-  
+theme: shark.css
 output_dir: "docs"
 navbar:
   right:
