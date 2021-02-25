@@ -1,0 +1,142 @@
+---
+title: "Raster analysis"
+description: |
+  Some raster analysis skills
+author:
+  - name: Leonardo Feitosa
+    url: {}
+date: 02-25-2021
+output:
+  distill::distill_article:
+    self_contained: false
+    code_folding: hide
+---
+
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+library(raster)
+library(tidyverse)
+library(here)
+library(sf)
+library(janitor)
+library(rnaturalearthdata)
+library(rnaturalearth)
+```
+
+In this post I'll show you some of the recent analysis I made using `raster` data. I got `raster` data from *AquaMaps* (www.aquamaps.org) on the predicted occurrence of 35 cetaceans species based on environmental variables in the California Bight and used it to calculate the predicted species richness of cetaceans in the region.
+
+Check it out below! All code used is available by clicking in the arrows.
+
+
+```{r}
+## Read in the data
+cetaceans <- list.files(path = here("data", "ca_cetaceans"),
+                       pattern = "*.tif",
+                       full.names = TRUE)
+
+# Create stack for the rasters
+cet_stack <- raster::stack(cetaceans)
+
+#plot(cet_stack)
+
+## Setting probability threshold
+is_habitat <- function(x, thresh = 0.7) {
+  y <- ifelse(x >= thresh, 1, 0)
+  return(y)
+}
+
+# Filter rasters for the 0.7 threshold
+cet <- calc(cet_stack, fun = is_habitat)
+
+# Calculate cetacean species richness
+cet_new <- calc(cet, fun = sum, na.rm = T)
+
+#plot(cet)
+#plot(cet_new)
+
+# Create dataframes from the rasters
+richness_df <- raster::rasterToPoints(cet_new) %>% 
+  as.data.frame()
+
+```
+
+
+```{r}
+## Get maps from rnaturalearth
+world <- ne_countries(scale = "medium", returnclass = "sf")
+usa <- ne_countries(country = "United States of America", returnclass = "sf")
+```
+
+```{r}
+# Make the plot
+cet_map <- ggplot(data = usa) +
+  geom_raster(data = richness_df, aes(x = x, y = y, fill = layer),
+              show.legend = T) +
+  geom_sf(fill = "papayawhip",
+          color = "black",
+          size = 0.7) +
+  scale_fill_gradient(low = "white", high = "royalblue",
+                      breaks = seq(0, 25, by = 25)) +
+  geom_text(aes(x = -117, y = 34.5,
+                label = "California Bight"),
+            color = "black",
+            size = 5) +
+  geom_text(aes(x = -123.4, y = 33,
+                label = "Pacific Ocean"),
+            color = "black",
+            size = 6) +
+  coord_sf(xlim = c(-125, -115),
+           ylim = c(32, 38),
+           expand = T) +
+  scale_y_continuous(breaks = seq(32, 38, by = 2)) +
+  scale_x_continuous(breaks = seq(-125, -115, by = 5)) +
+  theme_bw() +
+  theme(axis.title = element_blank(),
+        panel.grid = element_blank(),
+        axis.text = element_text(size = 10, color = "gray17"),
+        legend.position = c(.50, .82),
+        legend.background = element_rect(fill = "transparent"),
+        legend.text = element_text(color = "black", size = 10, face = "bold"),
+        legend.title = element_blank()) +
+  guides(fill = guide_colourbar(ticks = F,
+                                barwidth = 0.8))
+```
+
+```{r}
+west_coast <- ggplot(data = world) +
+  geom_sf(fill = "papayawhip") +
+  coord_sf(xlim = c(-130, -115),
+           ylim = c(33, 43)) +
+  geom_rect(xmin = -118.5, xmax = -121, ymin = 34, ymax = 35.5,
+            fill = NA, color = "black", size = 1) +
+  geom_text(aes(x = -118, y = 40,
+                label = "USA"),
+            color = "black",
+            size = 3) +
+  theme_bw() +
+  theme(panel.grid = element_blank(),
+        panel.background = element_rect(fill = "white"),
+        axis.text = element_blank(),
+        axis.title = element_blank(),
+        axis.ticks = element_blank())
+```
+
+## Predicted cetacean species richness in the California Bight
+```{r}
+ggplot() +
+  coord_equal(xlim = c(0, 30), ylim = c(0, 20), expand = FALSE) +
+  annotation_custom(ggplotGrob(cet_map), xmin = 0, xmax = 30, ymin = 0, ymax = 20) +
+  annotation_custom(ggplotGrob(west_coast), xmin = 21.8, xmax = 28, ymin = 13, ymax = 19.6) +
+  theme_void()
+```
+
+The figure above depicts the calculated richness of cetacean species in the California Bight. For this analysis, I retrieved data on the probability of occurrence for 35 cetacean species in the area from www.aquamaps.org as separate raster files. These probabilities are calculated based on environmental parameters including species preferences for water temperature, depth, salinity and distance to the coast. For this analysis, I chose a threshold of 70% chance of occurrence as a minimum standard for the probability of occurrence. Additionally, I used this threshold to create a binary classification of probabilities of occurrence. Values below 70% were considered to be equivalent to 0 (absent), while values equal or above 70% were equivalent to 1 (present). Darker areas in the Pacific Ocean are more likely to have more species, while lighter blue areas are expected to have a smaller richness. To build this map, I used raster algebra with the `raster` package and created the map with the pacakges `rnaturalearth` and `ggplot2`.
+
+
+ 
+
+#### Citation: Kaschner, K., Rius-Barile, J., Kesner-Reyes, K., Garilao, C., Kullander, S., Rees, T., & Froese, R. (2016). AquaMaps: Predicted range maps for aquatic species. www.aquamaps.org
+
+
+

@@ -35,7 +35,7 @@ This time I'll show you some new mapping skills I learned recently thanks to All
 
 I got data on the records of California oil spills by county in 2008 from this website https://gis.data.ca.gov/datasets/7464e3d6f4924b50ad06e5a553d71086_0/data and created a few data visualizations to show exactly where oil spills occurred in an interactive map. I also created a choropleth map based on the counts of oil spills per county so we can see where they most occurred in 2008.
 
-Here are the plots!
+Here are the plots! Code is available by clicking the hide arrows.
 
 ```{r}
 ## Read in the data
@@ -74,20 +74,8 @@ ca_oil_spills_tidy <- ca_oil_spills %>%
 ## set crs for both datasets
 ca_counties %>% st_crs()
 ca_oil_spills_tidy %>% st_crs()
-
 ```
 
-
-```{r, include = FALSE}
-ggplot() +
-  geom_sf(data = ca_counties,
-          color = "gray18",
-          size = 0.1) +
-  geom_sf(data = ca_oil_spills_tidy,
-          color = "black",
-          size = 0.5) +
-  theme_bw()
-```
 
 ## Interactive map of California oil spills in 2008
 
@@ -95,18 +83,20 @@ ggplot() +
 tmap_mode("view")
 
 tm_shape(ca_counties) +
-  tm_fill("county_name", palette = "Purples", title = "County") +
+  tm_fill("county_name", palette = "Greens", title = "County") +
   tm_shape(ca_oil_spills_tidy) +
   tm_dots(size = 0.03, col = "darkorange2", border.col = "black") +
-  tm_view(view.legend.position = "left")
+  tm_view(view.legend.position = c("right", "top"))
 ```
 
 
+**Figure 1:** Interactive plot with the exact locations where oil spills occurred in California in 2008. You can zoom in and out of this plot and explore each county! Data source:  https://gis.data.ca.gov/datasets/7464e3d6f4924b50ad06e5a553d71086_0/data
 
 
-## Data visualization of inland oil spills records in California in 2008
+## California oil spills by county
 
 ```{r}
+## Part 2
 ## Counts of California oil spills by county
 ca_oil_spills_join <- ca_counties %>% 
   st_join(ca_oil_spills_tidy)
@@ -128,4 +118,7 @@ ggplot(data = oil_spills_count) +
   theme(axis.text = element_text(size = 10, face = "bold", color = "black"),
         panel.grid = element_blank())
 ```
+
+**Figure 2:** Choropleth map of the total inland oil spills in California by county in 2008. Data source: https://gis.data.ca.gov/datasets/7464e3d6f4924b50ad06e5a553d71086_0/data 
+
 
