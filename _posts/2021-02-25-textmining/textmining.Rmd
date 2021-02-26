@@ -1,5 +1,5 @@
 ---
-title: "text_mining"
+title: "Text Mining and Sentiment Analysis"
 description: |
   A short description of the post.
 author:
@@ -30,11 +30,17 @@ library(ggpubr)
 
 ## Text Mining analysis of Jaws by Peter Benchley
 
-Here I'll show some text mining analysis for the famous novel Jaws by Peter Benchley.
+Text mining is a fun and powerful way of analyzing texts, including books, newspaper and scientific articles, as well as blog posts and even tweets! With it, we can perform sentiment analysis to see which types of words are more often used in a given text, what they are intended to mean, and a lot more. This post is just a scratch at the surface.
 
-Text mining is a fun and powerful way of analyzing texts, performing sentiment analysis 
+I decided to analyze the text in the Jaws novel by Peter Benchley because it's one of my favorite books of all time - one of the few I've read in English - and because it enabled me to use a lot of cool tools for #dataviz like the wordcloud plot.
+
+All the code used is accessible through the arrow buttons on the left.
 
 ```{r, cache = TRUE}
+# Read in the image
+img <- readJPEG(here("data", "jaws2.jpg"))
+
+
 ## Read in the data 
 jaws_text <- pdf_text(here("data", "jaws.pdf"))
 
@@ -118,14 +124,13 @@ ggplot(data = top_9_words, aes(x = word, y = n)) +
 
 ## Worldcloud
 
+In this figure I plotted the 50 most used words by the author along the book. As you can see, Brody, the main character - the police inspector who kills the great white shark in the Jaws movie - is the most used word along the book. 
+
 ```{r, warning = FALSE}
 top_50_words <- nonstop_counts %>% 
   group_by(no) %>% 
   arrange(-n) %>% 
   slice(1:50)
-
-# Read in the image
-img <- readJPEG(here("data", "sherlock", "jaws2.jpg"))
 
 top_50_words %>% 
   filter(no == 1) %>% 
@@ -140,6 +145,8 @@ top_50_words %>%
 
 
 ## Sentiment analysis
+
+For this sentiment analysis, I used the #NRC lexicon to figure out the most likely meaning of each words used in the text outside the most common words - a, an, the, he, she, it, etc. These are known as stop words in the text mining jargon and are easily treated with the `textdata` package. Here, I plotted the most common sentiments expressed in the book on each of the three parts. Really wished these lexicons were available in Portuguese so I could do a sentiment analysis of the Brazilian president's tweets like David Robinson did on this awesome blog post: http://varianceexplained.org/r/trump-tweets/
 
 ```{r, message = FALSE}
 ## NRC
@@ -183,6 +190,8 @@ ggplot(data = jaws_nrc_counts, aes(x = sentiment, y = n)) +
         panel.grid = element_blank())
 ```
 
+
+That's it for now. Learning curve is still ongoing.
 
 
 #### Citation: Benchley, Peter. Jaws.
