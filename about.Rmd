@@ -25,6 +25,19 @@ knitr::opts_chunk$set(echo = FALSE)
 * DNA extraction, amplification, and molecular data analyses
 * Elasmobranch vertebrae processing, ageing, and microchemistry data analysis
 
-## Experience and projects:
-* Assessing elasmobranch nursery areas on a global conservation hotspot for improved management (*ongoing*).
+## Projects:
+* Assessing elasmobranch nursery areas on a global conservation hotspot for improved management.
    + Description: We use samples from vertebrae of six critically endangered or data deficient elasmobranch species on Brazil's northern coast spanning from Maranhão to Amapá states. With them, microchemistry analysis will be carried out in order to obtain their habitat use patterns and, together with their biological information obtained from published studies, we will determine the key areas for their conservation in the region. Through that, areas considered as nurseries will be evaluated. Finally, a management plan will de developed taking into consideration the habitat use information obtained.
+
+* Habitat use of *Carcharhinus porosus* (Ranzani, 1839) (Elasmobranchii: Carcharhinidae) in Brazil's North coast through vertebrae microchemistry.
+   + Description:  
+   
+## Media
+
+* Forbes Magazine - What Happens Next in Brazil is Crucial For One Shark Species (https://www.forbes.com/sites/melissacristinamarquez/2020/05/25/what-happens-next-in-brazil-is-crucial-for-one-shark-species/)
+
+* Forbes Magazine - Found: An Elusive Shark In A South America Freshwater Lake For The First Time (https://www.forbes.com/sites/melissacristinamarquez/2019/11/04/found-an-elusive-shark-in-a-south-america-freshwater-lake-for-the-first-time/?sh=33d2772f19d8)
+
+* FAPEMA - UEMA researchers perform the largest investigation about shark fisheries production ever done in Brazil (https://www.fapema.br/pesquisadores-da-uema-realizam-maior-investigacao-sobre-producao-pesqueira-de-tubaroes-ja-desenvolvida-no-brasil/)
+
+* UFMA - DNA Analysis is an important tool to identify shark species threatened with extinction (https://portais.ufma.br/PortalUfma/paginas/noticias/noticia.jsf?id=54149)
